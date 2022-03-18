@@ -1,4 +1,4 @@
-export interface valoresPeliculas {
+export class valoresPeliculas {
     adult: boolean;
     backdrop_path:string;
     genre_ids:[];

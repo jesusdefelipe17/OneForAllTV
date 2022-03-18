@@ -8,5 +8,37 @@
 </ion-header>
 
 <ion-content>
-  <iframe [src]='getPeliculaStream()'  frameborder="0" allowfullscreen=""></iframe>
+
+  
+ 
+ 
+  
+  
+
+    <div class="contenedorImagen">
+      <div class="contenedorImagen">
+        <h3>{{valoresPeliculas.original_title}}</h3>
+        <ion-img src="https://image.tmdb.org/t/p/w500{{valoresPeliculas.poster_path}}" class="imagenPortada"></ion-img>
+      </div>
+     
+      <img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{valoresPeliculas.backdrop_path}}" alt="Card image cap"/>
+     
+    </div>
+ 
+
+  
+    <div class="card-body">
+      <p class="card-text">{{valoresPeliculas.overview}}</p>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <button type="button" class="btn btn-sm btn-outline-success" (click)="anadirPelicula(id)">Añadir Pelicula</button>
+        </div>
+        
+      </div>
+    </div>
+    <iframe [src]='getPeliculaStream()'  frameborder="0" allowfullscreen=""></iframe>
+
+
+ 
+
 </ion-content>

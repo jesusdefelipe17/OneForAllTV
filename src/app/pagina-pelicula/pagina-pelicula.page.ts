@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { servicioPelicula } from '../services/servicioPelicula';
+import { valoresPeliculas } from '../interfaces/valoresPeliculas';
 @Component({
   selector: 'app-pagina-pelicula',
   templateUrl: './pagina-pelicula.page.html',
@@ -11,12 +13,21 @@ export class PaginaPeliculaPage implements OnInit {
 
    idPelicula:string;
    url:string;
-
-  constructor(private router: Router, private activatedRoute: ActivatedRoute,public sanitizer: DomSanitizer) { }
+   resultados;
+   valoresPeliculas:valoresPeliculas = new valoresPeliculas();
+   peliculas:Array<any>=[];
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,public sanitizer: DomSanitizer,private servioPelicula :servicioPelicula) { }
 
   ngOnInit() {
     this.idPelicula = this.activatedRoute.snapshot.paramMap.get("id");
-    console.log(this.idPelicula);
+
+    this.servioPelicula.getPelicula(this.idPelicula).subscribe(resultados=>{
+      this.valoresPeliculas = resultados;
+
+      console.log(this.valoresPeliculas);
+    });
+
+
   }
 
   close() {
