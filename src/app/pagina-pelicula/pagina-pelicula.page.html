@@ -1,3 +1,6 @@
+
+
+ <link rel="stylesheet" href="css/circle.css">
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -7,36 +10,61 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="fondo">
 
-  
- 
- 
-  
-  
+<div class="fondo">
 
-    <div class="contenedorImagen">
-      <div class="contenedorImagen">
+    <div class="contenido">
+        
         <h3>{{valoresPeliculas.original_title}}</h3>
+        <p id="des" class="card-text">Puntuacion: {{valoresPeliculas.vote_average}} / 10</p>
+      
+        <p id="des2" class="card-text">{{valoresPeliculas.tagline}}</p>
         <ion-img src="https://image.tmdb.org/t/p/w500{{valoresPeliculas.poster_path}}" class="imagenPortada"></ion-img>
-      </div>
+      
      
-      <img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{valoresPeliculas.backdrop_path}}" alt="Card image cap"/>
+        
+          <div class="back"> </div>
+        <img id="imagenBack" class="card-img-top" src="https://image.tmdb.org/t/p/w500{{valoresPeliculas.backdrop_path}}" alt="Card image cap" />
      
     </div>
- 
 
   
     <div class="card-body">
       <p class="card-text">{{valoresPeliculas.overview}}</p>
       <div class="d-flex justify-content-between align-items-center">
         <div class="btn-group">
-          <button type="button" class="btn btn-sm btn-outline-success" (click)="anadirPelicula(id)">Añadir Pelicula</button>
+         <!-- <button type="button" class="btn btn-sm btn-outline-success" (click)="anadirPelicula(id)">Añadir Pelicula</button>-->
         </div>
         
       </div>
     </div>
-    <iframe [src]='getPeliculaStream()'  frameborder="0" allowfullscreen=""></iframe>
+    <div style="text-align: center;">
+      <iframe [src]='getPeliculaStream()'  frameborder="0" allowfullscreen width="100%" height="250px"></iframe>
+    </div>
+  
+    <div style="text-align: center;">
+      <h2>Reparto Principal</h2>
+    </div>
+
+    <div class="card-group">
+    <div class="row">
+    <div  class="col-4 box-shadow" *ngFor="let item of reparto_array.slice(0, 6);">
+
+          
+          <img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{item.profile_path}}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{item.name}}</h5>
+         
+          </div>
+        
+      
+      </div>
+    </div>
+  </div>
+  
+    
+  </div>
 
 
  

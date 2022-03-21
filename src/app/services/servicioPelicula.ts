@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { pelicula } from '../interfaces/pelicula';
+import { trailer } from '../interfaces/trailer';
 import { valoresPeliculas } from '../interfaces/valoresPeliculas';
+import { reparto } from '../interfaces/reparto';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
@@ -26,6 +28,17 @@ export class servicioPelicula {
     var path = 'https://api.themoviedb.org/3/movie/'.concat(numPeli).concat('?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES');
     console.log(path);
     return this.http.get<valoresPeliculas>(path);
+  }
+  getTrailer(numPeli){
+    var path = 'https://api.themoviedb.org/3/movie/'.concat(numPeli).concat('/videos?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES');
+    console.log(path);
+    return this.http.get<trailer>(path);
+  }
+
+  getRepartoPelicula(numPeli){
+    var path = 'https://api.themoviedb.org/3/movie/'.concat(numPeli).concat('/credits?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES');
+    console.log(path);
+    return this.http.get<reparto>(path);
   }
  
 }
