@@ -5,51 +5,29 @@ ion-back-button {
     background-color: black;
     
  }
- .imagenPortada{
-    width: 30%; 
-    height: 20%;
-    position: absolute;
-    left: 5%;
-    margin-top: 5%;
-   
+ .new-background-color{
+   --background: #000000;
+ 
+}
+ion-title{
+   text-align: center;
+   margin-right: 10%;
+}
+ ion-icon {
+   color: White;
+   background-color: Black;
+   font-size: 30px; 
  }
  p{
    color: white;
  }
- .card-title,h2{
+ .card-title,h2,h3{
    color: white;
  }
- h3{
-    position: absolute;
-    top: 3%;
-    left: 40%;
-    color: white;
-    z-index: 2;
-    bottom: 2%;
- }
- #des{
-   position: absolute;
-   top: 12%;
-   left: 40%;
-   color: white;
-   z-index: 2;
-   width: 50%;
-   height: 15%;
-   overflow: auto;
- }
- #des2{
-   position: absolute;
-   top: 18%;
-   left: 40%;
-   color: white;
-   z-index: 2;
-   width: 50%;
-   height: 15%;
-   overflow: auto;
- }
- ion-img{
-   z-index: 2;
- }
+ .titulo{
+   text-align: center;
+
+}
  
 .back{
    position: absolute;
@@ -90,34 +68,7 @@ ion-back-button {
       opacity: 0.7;
       image-rendering: auto;
    }
-   #des{
-      position: absolute;
-      top: 8%;
-      left: 40%;
-      color: white;
-      z-index: 2;
-      width: 60%;
-      height: 15%;
-      overflow: auto;
-    }
-    #des2{
-      position: absolute;
-      top: 13%;
-      left: 40%;
-      color: white;
-      z-index: 2;
-      width: 60%;
-      height: 15%;
-      overflow: auto;
-    }
-    h3{
-      position: absolute;
-      top: 1%;
-      left: 40%;
-      color: white;
-      z-index: 2;
-    
-   }
+   
  }
 
 
