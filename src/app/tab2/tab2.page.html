@@ -1,17 +1,60 @@
-<ion-header [translucent]="true">
+<ion-header translucent>
+ 
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-searchbar (input)="busquedaAplication($event.target.value)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="album" [fullscreen]="true">
+  <div class="album py-5">
+   
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+      <div  class="box-shadow" *ngFor="let item of peliculas.slice(6, 12);">
+
+       
+
+
+      <ion-row style="text-align: center;">
+        <ion-col>
+          <div *ngIf="item.poster_path!=null;else other_content">
+           <img class="peliBusquedaInicio card-img-top" src="https://image.tmdb.org/t/p/w500{{item.backdrop_path}}" alt="Card image cap"  onerror="this.onerror=null;this.src='https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';" >
+        </div>
+        <ng-template #other_content>
+          <a [routerLink]="['/pagina-pelicula', item.id]" ><img class="card-img-top" src="https://increasify.com.au/wp-content/uploads/2016/08/default-image.png" alt="Card image cap"></a>
+        </ng-template>
+        </ion-col>
+        <ion-col>
+          <div><h5 style="color: white; margin-top: 5%;">{{item.title}}</h5></div>
+        </ion-col>
+        <ion-col size="2">
+          <div>  <a [routerLink]="['/pagina-pelicula', item.id]" ><li class="list-group-item"  style="background-color: black;"> <ion-icon name="play-outline"></ion-icon></li></a></div>
+        </ion-col>
+      </ion-row>
+
+      </div>
+      <div class="row card-group">
+
+
+
+      
+  <div  class="col-4 box-shadow" *ngFor="let item of busqueda.results">
+
+    <div *ngIf="item.poster_path!=null;else other_content">
+      <a [routerLink]="['/pagina-pelicula', item.id]" ><img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" alt="Card image cap"  onerror="this.onerror=null;this.src='https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';"></a>
+  </div>
+  <ng-template #other_content>
+    <a [routerLink]="['/pagina-pelicula', item.id]" ><img class="card-img-top" src="https://increasify.com.au/wp-content/uploads/2016/08/default-image.png" alt="Card image cap"></a>
+  </ng-template>
+    <div class="card-body">
+    
+      <div class="d-flex justify-content-between align-items-center">
+       
+        
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+ 
 </ion-content>

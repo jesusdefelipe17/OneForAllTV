@@ -4,6 +4,7 @@ import { pelicula } from '../interfaces/pelicula';
 import { trailer } from '../interfaces/trailer';
 import { valoresPeliculas } from '../interfaces/valoresPeliculas';
 import { reparto } from '../interfaces/reparto';
+import { busqueda } from '../interfaces/busqueda';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
@@ -39,6 +40,12 @@ export class servicioPelicula {
     var path = 'https://api.themoviedb.org/3/movie/'.concat(numPeli).concat('/credits?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES');
     console.log(path);
     return this.http.get<reparto>(path);
+  }
+
+  getPeliculaBusqueda(palabraBusqueda){
+    var path = 'https://api.themoviedb.org/3/search/movie?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES&query='.concat(palabraBusqueda).concat('&page=1&include_adult=false');
+    console.log(path);
+    return this.http.get<busqueda>(path);
   }
  
 }
