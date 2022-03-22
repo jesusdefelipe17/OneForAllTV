@@ -33,9 +33,21 @@ export class PaginaPeliculaPage implements OnInit {
 
     });
     this.servioPelicula.getRepartoPelicula(this.idPelicula).subscribe(resultados_reparto=>{
-      this.reparto = resultados_reparto;
+      
 
       console.log(this.reparto.cast);
+
+      for (let index = 0; index < resultados_reparto.cast.length; index++) {
+       
+        if(resultados_reparto.cast[index].profile_path!=null){
+
+        }else{
+          resultados_reparto.cast.splice(index, 1);
+        }
+      }
+
+      this.reparto = resultados_reparto;
+
       this.reparto_array= this.reparto.cast;
     });
 

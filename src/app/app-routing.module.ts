@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'pagina-pelicula/:id',
     loadChildren: () => import('./pagina-pelicula/pagina-pelicula.module').then( m => m.PaginaPeliculaPageModule)
+  },
+  {
+    path: 'pagina-serie/:id',
+    loadChildren: () => import('./pagina-serie/pagina-serie.module').then( m => m.PaginaSeriePageModule)
   }
 ];
 @NgModule({

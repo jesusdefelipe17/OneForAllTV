@@ -1,8 +1,8 @@
 <div class="toolbar">
 <ion-header>
-  <ion-toolbar class="toolbar">
+  <ion-toolbar class="new-background-color border border-dark">
     <ion-title class="titulo">
-     ALL FOR ONE
+     ONE FOR ALL TV
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -15,14 +15,13 @@
   </ion-header>
  
   
-  
-  <div class="album py-5">
+  <div class="album py-3">
     <div class="container">
       <h3>Peliculas Populares</h3>
       <br>
       <div class="row card-group">
        
-          <div  class="col-4 box-shadow" *ngFor="let item of peliculas.slice(0, 6);">
+          <div  class="col-4 box-shadow" *ngFor="let item of peliculas.slice(0, 12);">
 
             <div *ngIf="item.poster_path!=null;else other_content">
               <a [routerLink]="['/pagina-pelicula', item.id]" ><img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" alt="Card image cap"  onerror="this.onerror=null;this.src='https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';"></a>
@@ -43,5 +42,30 @@
     </div>
   </div>
    <!-- <app-explore-container name="Tab 1 page"></app-explore-container>-->
+   <div class="album py-3">
+    <div class="container">
+      <h3>Series Populares</h3>
+      <br>
+      <div class="row card-group">
+       
+          <div  class="col-4 box-shadow" *ngFor="let item of series.slice(0, 12);">
+
+            <div *ngIf="item.poster_path!=null;">
+              <a [routerLink]="['/pagina-serie', item.id]" ><img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" alt="Card image cap"  ></a>
+              <div class="card-body">
+            
+                <div class="d-flex justify-content-between align-items-center">
+                 
+                  
+                </div>
+              </div>
+            </div>
+          
+           
+          </div>
+        </div>
+    
+    </div>
+  </div>
 
 </ion-content>

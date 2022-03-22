@@ -6,8 +6,9 @@ import { valoresPeliculas } from '../interfaces/valoresPeliculas';
 import { reparto } from '../interfaces/reparto';
 import { busqueda } from '../interfaces/busqueda';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
-
+import { series } from '../interfaces/series';
+import { serie } from '../interfaces/serie';
+import { temporada } from '../interfaces/temporada';
 
 
 @Injectable({
@@ -47,5 +48,25 @@ export class servicioPelicula {
     console.log(path);
     return this.http.get<busqueda>(path);
   }
- 
+
+  getSeriePopular(){
+    var path = 'https://api.themoviedb.org/3/tv/popular?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES&page=1';
+    console.log(path);
+    return this.http.get<series>(path);
+  }
+  getSerie(numSerie){
+    var path = 'https://api.themoviedb.org/3/tv/'.concat(numSerie).concat('?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES');
+    console.log(path);
+    return this.http.get<serie>(path);
+  }
+  getEpisodios(numTemporada,idSerie){
+    var path = 'https://api.themoviedb.org/3/tv/'.concat(idSerie).concat('/season/').concat(numTemporada).concat('?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES');
+    console.log(path);
+    return this.http.get<temporada>(path);
+  }
+  getEpisodio(numTemporada,idSerie,idCapitulo){
+    var path = 'https://api.themoviedb.org/3/tv/'.concat(idSerie).concat('/season/').concat(idCapitulo).concat('/episode/').concat(numTemporada).concat('?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES');
+    console.log(path);
+    return this.http.get<temporada>(path);
+  }
 }

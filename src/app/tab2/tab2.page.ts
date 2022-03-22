@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -11,7 +11,7 @@ import { busqueda } from '../interfaces/busqueda';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-
+  @ViewChild('draggable') private draggableElement: ElementRef;
   idPelicula:string;
   url:string;
   resultados_reparto;
@@ -19,12 +19,29 @@ export class Tab2Page {
   peliculas:Array<any>=[];
   keyTrailer:string;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute,public sanitizer: DomSanitizer,private servicioPelicula :servicioPelicula) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,public sanitizer: DomSanitizer,private servicioPelicula :servicioPelicula) {
+
+    router.events.subscribe((val) => {
+      // see also 
+      console.log();
+  });
+  }
   ngOnInit(): void {
   
     
     this.servicioPelicula.getPopularMovies().subscribe(todos=>{
       console.log(todos.results);
+
+        
+      for (let index = 0; index < todos.results.length; index++) {
+       
+        if(todos.results[index].poster_path!=null){
+
+        }else{
+          todos.results.splice(index, 1);
+        }
+      }
+
       this.peliculas = todos.results;
       
     });
@@ -32,15 +49,37 @@ export class Tab2Page {
   }
  
   busquedaAplication(value){
+    console.log(value);
 
-    this.servicioPelicula.getPeliculaBusqueda(value).subscribe(busquedaPeliculas=>{
+    if(value==""){
+      document.getElementById("drag").style.display="block";
+      document.getElementById("drag2").style.display="none";
+    }else{
+      document.getElementById("drag").style.display="none";
+      document.getElementById("drag2").style.display="block";
+      this.servicioPelicula.getPeliculaBusqueda(value).subscribe(busquedaPeliculas=>{
+  
+        console.log(busquedaPeliculas);
 
-      console.log(busquedaPeliculas);
-
-      this.busqueda = busquedaPeliculas;
-
-    })
+        for (let index = 0; index < busquedaPeliculas.results.length; index++) {
+       
+          if(busquedaPeliculas.results[index].poster_path!=null){
+  
+          }else{
+            busquedaPeliculas.results.splice(index, 1);
+          }
+        }
+  
+        this.busqueda = busquedaPeliculas;
+        
+      })
+    }
     
+  }
+
+  onCancel(value) {
+    document.getElementById("drag").style.display="block";
+    document.getElementById("drag2").style.display="none";
   }
 
 }

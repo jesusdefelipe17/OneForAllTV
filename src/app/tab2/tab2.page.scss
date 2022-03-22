@@ -1,5 +1,7 @@
 .album{
     background-color: black;
+    
+   
 }
 .peliBusquedaInicio{
     width: 100%;
@@ -8,5 +10,13 @@
 ion-icon {
     color: White;
     background-color: Black;
-    font-size: 25px; 
-  }
+    font-size: 25px;
+ }
+ #back{
+     height: 100%;
+    background-color: Black;
+ }
+ .new-background-color{
+    --background: #000000;
+    
+ }

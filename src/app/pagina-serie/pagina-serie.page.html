@@ -1,0 +1,90 @@
+<div class="titulo" >
+  <ion-header class="titulo" >
+    <ion-toolbar  class="new-background-color">
+      <ion-buttons slot="start">
+        <ion-back-button icon="arrow-back-sharp" (click)="close()"></ion-back-button>
+        
+      </ion-buttons>
+      <ion-title class="titulo" style="color: red;">
+        ONE FOR ALL 
+       </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  </div>
+
+  <ion-content class="fondo">
+
+    <div class="fondo">
+    
+        <div class="contenido">
+          
+            <ion-img src="https://image.tmdb.org/t/p/w500{{serie.poster_path}}" id="portada"></ion-img>
+          
+            <ul class="list-group list-group-flush" style="background-color: black; text-align: center;">
+              <li class="list-group-item"  style="background-color: black;  color: green;">Puntuacion: {{serie.vote_average}} / 10</li> <p style="color: red;">OFA ENTRETEINMENT</p>
+             
+              <ion-row style="text-align: center;">
+                <ion-col>
+                  <div> <li class="list-group-item"  style="background-color: black;"><ion-icon name="arrow-undo-outline"></ion-icon></li></div>
+                </ion-col>
+                <ion-col>
+                  <div> <li class="list-group-item"  style="background-color: black;"><ion-icon name="thumbs-up-outline"></ion-icon></li></div>
+                </ion-col>
+    
+                <ion-col>
+                  <div> <li class="list-group-item"  style="background-color: black;"> <ion-icon name="add-outline"></ion-icon></li></div>
+                </ion-col>
+    
+               
+              </ion-row>
+            </ul>
+          
+         
+             
+        </div>
+    
+      
+        <div class="card-body">
+          <p class="card-text">{{serie.overview}}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+             <!-- <button type="button" class="btn btn-sm btn-outline-success" (click)="anadirPelicula(id)">Añadir Pelicula</button>-->
+            </div>
+            
+          </div>
+        </div>
+        <div style="text-align: center;">
+          <ion-item>
+            <ion-label>Temporada: </ion-label>
+            <ion-select placeholder="Selecciona temporada" (ionChange)="busquedaCapitulosTemporada($event.target.value)">
+              <ion-select-option *ngFor="let item of seasons;let indice=index">{{item.season_number}}</ion-select-option>
+              
+            </ion-select>
+          </ion-item>
+
+          <ion-item id="capitulos">
+            <ion-label>Capitulo: </ion-label>
+            <ion-select id="selectCapitulo" placeholder="Selecciona episodio" (ionChange)="busquedaCapitulo($event.target.value)">
+              <ion-select-option *ngFor="let item of temporada.episodes;let indice=index">{{item.episode_number}}</ion-select-option>
+              
+            </ion-select>
+          </ion-item>
+
+          <div *ngIf="this.capitulo!=null;">
+            <iframe [src]='getSerieStream()'  frameborder="0" allowfullscreen width="100%" height="250px"></iframe>
+          </div>
+          
+        </div>
+      
+        <div style="text-align: center;">
+          <h2>Reparto Principal</h2>
+        </div>
+    
+      
+      
+        
+      </div>
+    
+    
+    </ion-content>
+    

@@ -1,5 +1,6 @@
 ion-back-button {
     display: block;
+    color: White;
  }
 .fondo{
     background-color: black;
@@ -42,6 +43,10 @@ ion-title{
 #imagenBack{
    width: 100%;
    height: 100%;
+}
+
+#serieImgError{
+   height: 72%;
 }
 
 @media only screen and  (max-width:424px) and (min-width: 375px)  { //Pantallas medianas

@@ -1,6 +1,8 @@
 export class reparto {
     
-    cast:[];
+    cast:[{
+        profile_path:string;
+    }];
     id:number;
   
 }

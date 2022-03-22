@@ -67,8 +67,12 @@
     <div class="row">
     <div  class="col-4 box-shadow" *ngFor="let item of reparto_array.slice(0, 6);">
 
-          
+      <div *ngIf="item.profile_path!=null;else other_content">
           <img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{item.profile_path}}" alt="Card image cap">
+        </div>
+        <ng-template #other_content>
+          <img class="card-img-top" id="serieImgError" src="https://img.soluziondigital.com/img/p/es-default-home_default.jpg" alt="Card image cap">
+          </ng-template>
           <div class="card-body">
             <h5 class="card-title" style="font-size: 14px !important;">{{item.name}}</h5>
          
