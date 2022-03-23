@@ -6,6 +6,7 @@ import { servicioPelicula } from '../services/servicioPelicula';
 import { valoresPeliculas } from '../interfaces/valoresPeliculas';
 import { trailer } from '../interfaces/trailer';
 import { reparto } from '../interfaces/reparto';
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-pagina-pelicula',
   templateUrl: './pagina-pelicula.page.html',
@@ -23,7 +24,7 @@ export class PaginaPeliculaPage implements OnInit {
    keyTrailer:string;
    reparto:reparto = new reparto();
    reparto_array:Array<any>=[];
-  constructor(private router: Router, private activatedRoute: ActivatedRoute,public sanitizer: DomSanitizer,private servioPelicula :servicioPelicula) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,public sanitizer: DomSanitizer,private servioPelicula :servicioPelicula,private navCtrl: NavController) { }
 
   ngOnInit() {
     this.idPelicula = this.activatedRoute.snapshot.paramMap.get("id");
@@ -54,7 +55,7 @@ export class PaginaPeliculaPage implements OnInit {
   }
 
   close() {
-    this.router.navigate(['/', 'tabs']);
+    this.navCtrl.back();
   }
   
   getPeliculaStream(){

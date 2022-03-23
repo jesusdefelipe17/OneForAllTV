@@ -21,7 +21,7 @@
             <ion-img src="https://image.tmdb.org/t/p/w500{{serie.poster_path}}" id="portada"></ion-img>
           
             <ul class="list-group list-group-flush" style="background-color: black; text-align: center;">
-              <li class="list-group-item"  style="background-color: black;  color: green;">Puntuacion: {{serie.vote_average}} / 10</li> <p style="color: red;">OFA ENTRETEINMENT</p>
+              <li class="list-group-item"  style="background-color: black;  color: green;">Puntuacion: {{serie.vote_average}} / 10</li>
              
               <ion-row style="text-align: center;">
                 <ion-col>
@@ -80,6 +80,25 @@
           <h2>Reparto Principal</h2>
         </div>
     
+        <div class="card-group">
+          <div class="row">
+          <div  class="col-4 box-shadow" *ngFor="let item of reparto_array.slice(0, 6);">
+      
+            <div *ngIf="item.profile_path!=null;else other_content">
+                <img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{item.profile_path}}" alt="Card image cap">
+              </div>
+              <ng-template #other_content>
+                <img class="card-img-top" id="serieImgError" src="https://img.soluziondigital.com/img/p/es-default-home_default.jpg" alt="Card image cap">
+                </ng-template>
+                <div class="card-body">
+                  <h5 class="card-title" style="font-size: 14px !important;">{{item.name}}</h5>
+               
+                </div>
+              
+            
+            </div>
+          </div>
+        </div>
       
       
         

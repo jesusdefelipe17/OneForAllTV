@@ -5,6 +5,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { servicioPelicula } from '../services/servicioPelicula';
 import { busqueda } from '../interfaces/busqueda';
 
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -18,7 +19,8 @@ export class Tab2Page {
   busqueda:busqueda = new busqueda();
   peliculas:Array<any>=[];
   keyTrailer:string;
-
+  busquedas:Array<any>=[];
+  arrayBusquedas:Array<any>=[];
   constructor(private router: Router, private activatedRoute: ActivatedRoute,public sanitizer: DomSanitizer,private servicioPelicula :servicioPelicula) {
 
     router.events.subscribe((val) => {
@@ -30,7 +32,7 @@ export class Tab2Page {
   
     
     this.servicioPelicula.getPopularMovies().subscribe(todos=>{
-      console.log(todos.results);
+     
 
         
       for (let index = 0; index < todos.results.length; index++) {
@@ -49,7 +51,7 @@ export class Tab2Page {
   }
  
   busquedaAplication(value){
-    console.log(value);
+    
 
     if(value==""){
       document.getElementById("drag").style.display="block";
@@ -57,26 +59,47 @@ export class Tab2Page {
     }else{
       document.getElementById("drag").style.display="none";
       document.getElementById("drag2").style.display="block";
+   
       this.servicioPelicula.getPeliculaBusqueda(value).subscribe(busquedaPeliculas=>{
-  
-        console.log(busquedaPeliculas);
-
+        this.busquedas=[];
+       
         for (let index = 0; index < busquedaPeliculas.results.length; index++) {
        
           if(busquedaPeliculas.results[index].poster_path!=null){
+            
+            this.busquedas.push(busquedaPeliculas.results[index]);
   
           }else{
             busquedaPeliculas.results.splice(index, 1);
           }
+
         }
-  
-        this.busqueda = busquedaPeliculas;
+   
         
       })
+
+
+      this.servicioPelicula.getSerieBusqueda(value).subscribe(busquedaSeries=>{
+  
+       
+
+        for (let index = 0; index < busquedaSeries.results.length; index++) {
+       
+          if(busquedaSeries.results[index].poster_path!=null){
+            this.busquedas.push(busquedaSeries.results[index]);
+          }else{
+            busquedaSeries.results.splice(index, 1);
+          }
+
+        }
+        
+      })
+      this.arrayBusquedas = this.busquedas.sort((a, b) => a.popularity < b.popularity ? 1 :  b.popularity < a.popularity ? -1 : 0);
+      console.log( this.arrayBusquedas);
     }
     
   }
-
+   
   onCancel(value) {
     document.getElementById("drag").style.display="block";
     document.getElementById("drag2").style.display="none";

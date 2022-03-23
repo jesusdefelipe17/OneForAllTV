@@ -41,10 +41,18 @@
     <div id="drag2" >
       <div class="row card-group">
 
-          <div  class="col-4 box-shadow" *ngFor="let item of busqueda.results">
+          <div  class="col-4 box-shadow" *ngFor="let item of arrayBusquedas">
 
             <div *ngIf="item.poster_path!=null;else other_content">
-              <a [routerLink]="['/pagina-pelicula', item.id]" ><img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" alt="Card image cap"  onerror="this.onerror=null;this.src='https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';"></a>
+             
+              <div *ngIf="item.first_air_date!=null;else other">
+                <a [routerLink]="['/pagina-serie', item.id]" ><img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" alt="Card image cap"  onerror="this.onerror=null;this.src='https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';"></a>
+              
+              </div>
+              <ng-template #other>
+                <a [routerLink]="['/pagina-pelicula', item.id]" ><img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" alt="Card image cap"  onerror="this.onerror=null;this.src='https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';"></a>
+              </ng-template>
+              
           </div>
           <ng-template #other_content>
             <a [routerLink]="['/pagina-pelicula', item.id]" ><img class="card-img-top" src="https://increasify.com.au/wp-content/uploads/2016/08/default-image.png" alt="Card image cap"></a>

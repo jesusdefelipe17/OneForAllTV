@@ -6,7 +6,8 @@ import { servicioPelicula } from '../services/servicioPelicula';
 import { valoresPeliculas } from '../interfaces/valoresPeliculas';
 import { serie } from '../interfaces/serie';
 import { temporada } from '../interfaces/temporada';
-
+import { reparto } from '../interfaces/reparto';
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-pagina-serie',
   templateUrl: './pagina-serie.page.html',
@@ -26,9 +27,10 @@ export class PaginaSeriePage implements OnInit {
   idTemporadaFinal:number;
   capitulo:number;
   temporada:temporada = new temporada();
-  
+  reparto:reparto = new reparto();
+  reparto_array:Array<any>=[];
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute,public sanitizer: DomSanitizer,private servioPelicula :servicioPelicula) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,public sanitizer: DomSanitizer,private servioPelicula :servicioPelicula,private navCtrl: NavController) { }
 
   ngOnInit() {
 
@@ -40,7 +42,22 @@ export class PaginaSeriePage implements OnInit {
       console.log(this.seasons);
     });
 
-  
+    this.servioPelicula.getEpisodioReparto(this.idSerie,1).subscribe(resultados_reparto=>{
+      
+
+      for (let index = 0; index < resultados_reparto.cast.length; index++) {
+       
+        if(resultados_reparto.cast[index].profile_path!=null){
+
+        }else{
+          resultados_reparto.cast.splice(index, 1);
+        }
+      }
+
+      this.reparto = resultados_reparto;
+
+      this.reparto_array= this.reparto.cast;
+    });
 
     /*
     this.servioPelicula.getRepartoPelicula(this.idPelicula).subscribe(resultados_reparto=>{
@@ -65,7 +82,7 @@ export class PaginaSeriePage implements OnInit {
 
   }
   close() {
-    this.router.navigate(['/', 'tabs']);
+    this.navCtrl.back();
   }
   
   busquedaCapitulosTemporada(value){

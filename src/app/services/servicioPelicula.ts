@@ -69,4 +69,15 @@ export class servicioPelicula {
     console.log(path);
     return this.http.get<temporada>(path);
   }
+  getEpisodioReparto(idSerie,numTemporada){ 
+    var path = 'https://api.themoviedb.org/3/tv/'.concat(idSerie).concat('/season/').concat(numTemporada).concat('/credits?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES');
+    console.log(path);
+    return this.http.get<reparto>(path);
+  }
+ 
+  getSerieBusqueda(palabraBusqueda){ 
+    var path = 'https://api.themoviedb.org/3/search/tv?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES&query='.concat(palabraBusqueda).concat('&page=1&include_adult=false');
+  
+    return this.http.get<busqueda>(path);
+  }
 }
