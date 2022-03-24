@@ -7,6 +7,9 @@ import { valoresPeliculas } from '../interfaces/valoresPeliculas';
 import { trailer } from '../interfaces/trailer';
 import { reparto } from '../interfaces/reparto';
 import { NavController } from '@ionic/angular';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-pagina-pelicula',
   templateUrl: './pagina-pelicula.page.html',

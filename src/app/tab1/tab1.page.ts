@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { servicioPelicula } from '../services/servicioPelicula';
 
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -11,7 +12,7 @@ export class Tab1Page implements OnInit {
   peliculas:Array<any>=[];
   series:Array<any>=[];
   
-  constructor(private servioPelicula :servicioPelicula) {
+  constructor(private servioPelicula :servicioPelicula ) {
     
   }
 

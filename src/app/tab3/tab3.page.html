@@ -1,17 +1,32 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+<div class="toolbar">
+  <ion-header>
+    <ion-toolbar class="new-background-color border border-dark">
+      <ion-title class="titulo">
+       ONE FOR ALL TV
+      </ion-title>
     </ion-toolbar>
   </ion-header>
+  </div>
+  <ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+      <ion-toolbar class="toolbar">
+        <ion-title size="large">Peliculas</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+
+
+<ion-content class="auth-form">
+  <div class="album py-3">
+  <ion-grid>
+    <ion-row>
+      <ion-col align-self-center>
+        <ion-button [routerLink]="['/registro']" expand="block" color="primary">Registro</ion-button>
+        <span class="divider line one-line">or</span>
+        <span class="already">Already a user?</span>
+        <ion-button [routerLink]="['/login']" expand="block" color="danger">Entrar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
 </ion-content>
