@@ -78,7 +78,4 @@ De esta manera recuperas los datos de una serie
 
 De esta manera recuperas la serie para visualizarla
 
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
