@@ -10,11 +10,6 @@ Aplicacion movil para ver peliculas y series en ingles subtitulado a cualquier i
 - [@jesusdefelipe17](https://twitter.com/JesusDeFelipe17)
 
 
-## Documentation
-
-[Documentation](https://linktodocumentation)
-
-
 ## Referencias APIS
 
  APIS Utilizadas : 
