@@ -15,6 +15,11 @@
     </ion-header>
 
 
+    <div class="perfil">
+
+      <h1>{{usuario}}</h1>
+      
+    </div>
 
 <ion-content class="auth-form">
   <div class="album py-3">
@@ -24,7 +29,7 @@
         <ion-button [routerLink]="['/registro']" expand="block" color="primary">Registro</ion-button>
         <span class="divider line one-line">or</span>
         <span class="already">Already a user?</span>
-        <ion-button [routerLink]="['/login']" expand="block" color="danger">Entrar</ion-button>
+        <ion-button [routerLink]="['/login']" expand="block" color="danger">Iniciar Sesion</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

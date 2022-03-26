@@ -1,9 +1,37 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
+  <ion-toolbar class="new-background-color border border-dark">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="titulo">Iniciar Sesion</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+  <div class="contenido">
+    <p>h</p> 
+  </div>
+  <div class="album">
+  <form>
+    
+    <div class="code">
+  
+    </div>
+    
+    
+    <ion-item lines="full">
+      <ion-label position="floating">Usuario</ion-label>
+      <ion-input type="text" [(ngModel)]="user" name="usuario" required></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="text" [(ngModel)]="pass" name="pass"required></ion-input>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="iniciarse();" color="danger" expand="block">Iniciar Sesion</ion-button>
+      </ion-col>
+    </ion-row>
+ 
+  </form>
+</div>
 </ion-content>
