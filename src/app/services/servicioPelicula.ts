@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { pelicula } from '../interfaces/pelicula';
+import { PeliculaResponse } from '../interfaces/pelicula';
 import { trailer } from '../interfaces/trailer';
 import { valoresPeliculas } from '../interfaces/valoresPeliculas';
 import { reparto } from '../interfaces/reparto';
@@ -21,13 +21,13 @@ export class servicioPelicula {
   constructor(private http:HttpClient,public sanitizer: DomSanitizer) { }
 
 
-  getPopularMovies(){
-    var path = 'https://api.themoviedb.org/3/movie/popular?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES&page=1';
-    return this.http.get<pelicula>(path);
-  }
+  getPopularMovies() {
+    const path = 'https://onetvapi.onrender.com/ultimasPeliculas';
+    return this.http.get<PeliculaResponse>(path);
+}
 
-  getPelicula(numPeli){
-    var path = 'https://api.themoviedb.org/3/movie/'.concat(numPeli).concat('?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES');
+  getPelicula(nombrePelicula){
+    var path = 'https://onetvapi.onrender.com/getPelicula/'.concat(nombrePelicula);
     console.log(path);
     return this.http.get<valoresPeliculas>(path);
   }

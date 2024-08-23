@@ -11,6 +11,7 @@ export class Tab1Page implements OnInit {
   todos;
   peliculas:Array<any>=[];
   series:Array<any>=[];
+  cargarPeliculasPopulares:boolean = false;
   
   constructor(private servioPelicula :servicioPelicula ) {
     
@@ -24,21 +25,16 @@ export class Tab1Page implements OnInit {
   }
 
   getPopularMovie(){
-    this.servioPelicula.getPopularMovies().subscribe(todos=>{
-      console.log(todos.results);
-      for (let index = 0; index < todos.results.length; index++) {
-       
-        if(todos.results[index].poster_path!=null){
+   
 
-        }else{
-          todos.results.splice(index, 1);
-        }
-      }
-
-      this.peliculas = todos.results;
-      
-    });
+    this.servioPelicula.getPopularMovies().subscribe(response => {
+      this.peliculas  = response.peliculas;
+      this.cargarPeliculasPopulares = true;
+     
+  });
   }
+
+  
 
   getPopularSeries(){
     this.servioPelicula.getSeriePopular().subscribe(series=>{

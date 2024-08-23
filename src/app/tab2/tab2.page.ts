@@ -31,22 +31,10 @@ export class Tab2Page {
   ngOnInit(): void {
   
     
-    this.servicioPelicula.getPopularMovies().subscribe(todos=>{
+    this.servicioPelicula.getPopularMovies().subscribe(response => {
+      this.peliculas  = response.peliculas;
      
-
-        
-      for (let index = 0; index < todos.results.length; index++) {
-       
-        if(todos.results[index].poster_path!=null){
-
-        }else{
-          todos.results.splice(index, 1);
-        }
-      }
-
-      this.peliculas = todos.results;
-      
-    });
+  });
     
   }
  

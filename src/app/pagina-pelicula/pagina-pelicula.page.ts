@@ -17,55 +17,54 @@ import { environment } from '../../environments/environment';
 })
 export class PaginaPeliculaPage implements OnInit {
 
-   idPelicula:string;
-   url:string;
-   resultados;
-   resultados_reparto;
-   valoresPeliculas:valoresPeliculas = new valoresPeliculas();
-   trailer:trailer = new trailer();
-   peliculas:Array<any>=[];
-   keyTrailer:string;
-   reparto:reparto = new reparto();
-   reparto_array:Array<any>=[];
-  constructor(private router: Router, private activatedRoute: ActivatedRoute,public sanitizer: DomSanitizer,private servioPelicula :servicioPelicula,private navCtrl: NavController) { }
+  idPelicula: string;
+  enlaces: string[] = [];
+  url: string = '';
+  resultados;
+  resultados_reparto;
+  valoresPeliculas: valoresPeliculas = new valoresPeliculas();
+  trailer: trailer = new trailer();
+  peliculas: Array<any> = [];
+  keyTrailer: string;
+  reparto: reparto = new reparto();
+  reparto_array: Array<any> = [];
+  idiomaSeleccionado: number = 0; // Idioma por defecto
+  
+  cargarPelicula:boolean = false;
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    public sanitizer: DomSanitizer,
+    private servioPelicula: servicioPelicula,
+    private navCtrl: NavController
+  ) { }
 
   ngOnInit() {
     this.idPelicula = this.activatedRoute.snapshot.paramMap.get("id");
-
-    this.servioPelicula.getPelicula(this.idPelicula).subscribe(resultados=>{
+    this.servioPelicula.getPelicula(this.idPelicula).subscribe(resultados => {
       this.valoresPeliculas = resultados;
-
+      this.enlaces = this.valoresPeliculas.links.map(l => l.replace('doodstream.com', 'dood.li'));
+      this.cargarPelicula = true;
+      this.updateIframeUrl(); // Actualiza la URL del iframe al cargar
     });
-    this.servioPelicula.getRepartoPelicula(this.idPelicula).subscribe(resultados_reparto=>{
-      
-
-      console.log(this.reparto.cast);
-
-      for (let index = 0; index < resultados_reparto.cast.length; index++) {
-       
-        if(resultados_reparto.cast[index].profile_path!=null){
-
-        }else{
-          resultados_reparto.cast.splice(index, 1);
-        }
-      }
-
-      this.reparto = resultados_reparto;
-
-      this.reparto_array= this.reparto.cast;
-    });
-
   }
 
   close() {
-    this.navCtrl.back();
+    this.router.navigate(['../']);
   }
-  
-  getPeliculaStream(){
-    this.url="https://www.2embed.ru/embed/tmdb/movie?id="+this.idPelicula;
+
+  setLanguage(index: number) {
+    this.idiomaSeleccionado = index;
+    this.updateIframeUrl(); // Actualiza la URL cuando se cambia el idioma
+  }
+
+  updateIframeUrl() {
+    // Actualiza la URL del iframe según el enlace seleccionado
+    this.url = this.enlaces[this.idiomaSeleccionado] || this.enlaces[0];
+  }
+
+  getPeliculaStream(): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
-   }
-
-  
-
+  }
 }
