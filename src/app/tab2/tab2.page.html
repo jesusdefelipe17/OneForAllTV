@@ -13,7 +13,7 @@
   <div id="back">
 
   
-  <div class="album py-5">
+  <div class="album py-5" *ngIf="!cargarPeliculasPopulares">
    
     <div id="drag" >
       <div class="box-shadow" *ngFor="let item of peliculas.slice(13, 20);">
@@ -21,16 +21,16 @@
       <ion-row style="text-align: center;">
         <ion-col>
           <div *ngIf="item.poster_path!=null;else other_content">
-           <img class="peliBusquedaInicio card-img-top" src="https://image.tmdb.org/t/p/w500{{item.backdrop_path}}" alt="Card image cap"  onerror="this.onerror=null;this.src='https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';" >
+           <img class="peliBusquedaInicio card-img-top" src="{{item.imgSrc}}" alt="Card image cap"  onerror="this.onerror=null;this.src='https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';" >
         </div>
-        <ng-template #other_content>
-          <a [routerLink]="['/pagina-pelicula', item.id]" ><img class="card-img-top" src="https://increasify.com.au/wp-content/uploads/2016/08/default-image.png" alt="Card image cap"></a>
+        <ng-template #other_content class="itemCenter">
+          <a [routerLink]="['/pagina-pelicula', item.id]" ><img class="card-img-top" src="{{item.imgSrc}}" alt="Card image cap"></a>
         </ng-template>
         </ion-col>
-        <ion-col>
-          <div><h5 style="color: white; margin-top: 5%;">{{item.title}}</h5></div>
+        <ion-col class="itemCenter">
+          <div><h5 style="color: white; margin-top: 5%;">{{item.title2}}</h5></div>
         </ion-col>
-        <ion-col size="2">
+        <ion-col size="2" class="itemCenter">
           <div>  <a [routerLink]="['/pagina-pelicula', item.id]" ><li class="list-group-item"  style="background-color: black;"> <ion-icon name="play-outline"></ion-icon></li></a></div>
         </ion-col>
       </ion-row>
@@ -69,6 +69,13 @@
 
     </div>
 </div>
+
+<div *ngIf="cargarPeliculasPopulares" class="spinner-container itemCenter">
+          
+  <div class="loader"></div>
+
+</div>
+
 </div>
  
 </ion-content>

@@ -21,6 +21,7 @@ export class Tab2Page {
   keyTrailer:string;
   busquedas:Array<any>=[];
   arrayBusquedas:Array<any>=[];
+  cargarPeliculasPopulares:boolean = true;
   constructor(private router: Router, private activatedRoute: ActivatedRoute,public sanitizer: DomSanitizer,private servicioPelicula :servicioPelicula) {
 
     router.events.subscribe((val) => {
@@ -33,6 +34,7 @@ export class Tab2Page {
     
     this.servicioPelicula.getPopularMovies().subscribe(response => {
       this.peliculas  = response.peliculas;
+      this.cargarPeliculasPopulares = false;
      
   });
     

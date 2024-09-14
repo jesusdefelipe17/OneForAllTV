@@ -23,3 +23,49 @@ ion-icon {
     --background: #000000;
     
  }
+
+ .itemCenter{
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+ }
+
+
+ .spinner-container {
+    display: flex; /* Flexbox para centrar el contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    position: fixed; /* Asegura que se quede fijo en la pantalla */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ocupa el 100% del ancho */
+    height: 100vh; /* Ocupa el 100% del alto de la pantalla */
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente opcional */
+    z-index: 9999; /* Para asegurarse de que el spinner esté encima de otros elementos */
+    opacity: 1;
+    transition: opacity 0.5s ease-out; /* Transición para ocultar el spinner */
+}
+
+.loader {
+    width: 50px;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #25b09b;
+    --_m: 
+      conic-gradient(#0000 10%,#000),
+      linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+    mask: var(--_m);
+    -webkit-mask-composite: source-out;
+    mask-composite: subtract;
+    animation: l3 1s infinite linear;
+}
+
+@keyframes l3 {
+    to {transform: rotate(1turn);}
+}
+body, html {
+    height: 100%; /* Asegura que el body y el html ocupen el 100% del alto */
+    margin: 0; /* Elimina márgenes por defecto */
+}
