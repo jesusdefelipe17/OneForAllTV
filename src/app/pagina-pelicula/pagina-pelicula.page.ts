@@ -61,6 +61,7 @@ export class PaginaPeliculaPage implements OnInit {
 
   updateIframeUrl() {
     // Actualiza la URL del iframe según el enlace seleccionado
+    
     this.url = this.enlaces[this.idiomaSeleccionado] || this.enlaces[0];
   }
 
