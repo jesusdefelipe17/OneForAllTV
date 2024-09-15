@@ -4,7 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { servicioPelicula } from '../services/servicioPelicula';
 import { busqueda } from '../interfaces/busqueda';
-
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tab2',
@@ -13,86 +14,87 @@ import { busqueda } from '../interfaces/busqueda';
 })
 export class Tab2Page {
   @ViewChild('draggable') private draggableElement: ElementRef;
-  idPelicula:string;
-  url:string;
+
+  idPelicula: string;
+  url: string;
   resultados_reparto;
-  busqueda:busqueda = new busqueda();
-  peliculas:Array<any>=[];
-  keyTrailer:string;
-  busquedas:Array<any>=[];
-  arrayBusquedas:Array<any>=[];
-  cargarPeliculasPopulares:boolean = true;
-  constructor(private router: Router, private activatedRoute: ActivatedRoute,public sanitizer: DomSanitizer,private servicioPelicula :servicioPelicula) {
+  busqueda: busqueda = new busqueda();
+  peliculas: Array<any> = [];
+  keyTrailer: string;
+  busquedas: Array<any> = [];
+  arrayBusquedas: Array<any> = [];
+  cargarPeliculasPopulares: boolean = true;
 
+  // Definición de Subject para manejar los eventos de búsqueda con debounce
+  private searchSubject: Subject<string> = new Subject();
+
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, public sanitizer: DomSanitizer, private servicioPelicula: servicioPelicula) {
+    // Escucha cambios en la ruta
     router.events.subscribe((val) => {
-      // see also 
       console.log();
-  });
+    });
+
+    // Aplicar debounce al Subject para controlar las llamadas a la API
+    this.searchSubject.pipe(
+      debounceTime(1500),  // Espera 500 ms después del último input
+      distinctUntilChanged()  // Evita emitir valores duplicados
+    ).subscribe(value => {
+      this.realizarBusqueda(value);  // Realiza la búsqueda después del debounce
+    });
   }
+
   ngOnInit(): void {
-  
-    
+    // Cargar las películas populares al inicio
     this.servicioPelicula.getPopularMovies().subscribe(response => {
-      this.peliculas  = response.peliculas;
+      this.peliculas = response.peliculas;
       this.cargarPeliculasPopulares = false;
-     
-  });
-    
+    });
   }
- 
-  busquedaAplication(value){
-    
 
-    if(value==""){
-      document.getElementById("drag").style.display="block";
-      document.getElementById("drag2").style.display="none";
-    }else{
-      document.getElementById("drag").style.display="none";
-      document.getElementById("drag2").style.display="block";
-   
-      this.servicioPelicula.getPeliculaBusqueda(value).subscribe(busquedaPeliculas=>{
-        this.busquedas=[];
-       
+  // Método que se llama en cada input en el buscador
+  busquedaAplication(value: string) {
+    this.searchSubject.next(value);  // Envía el valor al Subject
+  }
+
+  // Realiza la búsqueda cuando el debounce termina
+  realizarBusqueda(value: string) {
+    if (value === "") {
+      document.getElementById("drag").style.display = "block";
+      document.getElementById("drag2").style.display = "none";
+      this.busquedas = [];  // Limpiar los resultados de búsqueda cuando no hay valor
+    } else {
+      document.getElementById("drag").style.display = "none";
+      document.getElementById("drag2").style.display = "block";
+
+      // Limpiar los resultados de búsqueda antes de hacer nuevas peticiones
+      this.busquedas = [];
+      this.arrayBusquedas = [];
+
+      // Llamada a la API para buscar películas
+      this.servicioPelicula.getPeliculaBusqueda(value).subscribe(busquedaPeliculas => {
         for (let index = 0; index < busquedaPeliculas.results.length; index++) {
-       
-          if(busquedaPeliculas.results[index].poster_path!=null){
-            
+          if (busquedaPeliculas.results[index].poster_path != null) {
             this.busquedas.push(busquedaPeliculas.results[index]);
-  
-          }else{
-            busquedaPeliculas.results.splice(index, 1);
           }
-
         }
-   
-        
-      })
 
+        // Si es necesario, ordenar la lista de películas después de obtener los resultados
+        this.ordenarBusquedasPorPopularidad();
+      });
 
-      this.servicioPelicula.getSerieBusqueda(value).subscribe(busquedaSeries=>{
-  
-       
-
-        for (let index = 0; index < busquedaSeries.results.length; index++) {
-       
-          if(busquedaSeries.results[index].poster_path!=null){
-            this.busquedas.push(busquedaSeries.results[index]);
-          }else{
-            busquedaSeries.results.splice(index, 1);
-          }
-
-        }
-        
-      })
-      this.arrayBusquedas = this.busquedas.sort((a, b) => a.popularity < b.popularity ? 1 :  b.popularity < a.popularity ? -1 : 0);
-      console.log( this.arrayBusquedas);
     }
-    
-  }
-   
-  onCancel(value) {
-    document.getElementById("drag").style.display="block";
-    document.getElementById("drag2").style.display="none";
   }
 
+  // Método para ordenar las búsquedas por popularidad
+  ordenarBusquedasPorPopularidad() {
+    this.arrayBusquedas = this.busquedas.sort((a, b) => a.popularity < b.popularity ? 1 : b.popularity < a.popularity ? -1 : 0);
+    console.log(this.arrayBusquedas);
+  }
+
+  // Método para manejar la cancelación de la búsqueda
+  onCancel(value) {
+    document.getElementById("drag").style.display = "block";
+    document.getElementById("drag2").style.display = "none";
+    this.busquedas = [];  // Limpiar los resultados de búsqueda cuando se cancela
+  }
 }

@@ -1,7 +1,10 @@
 <ion-header translucent>
- 
   <ion-toolbar class="new-background-color border border-dark">
-    <ion-searchbar (input)="busquedaAplication($event.target.value)" (ionClear)="onCancel($event.target.value)"></ion-searchbar>
+    <ion-searchbar style="margin-top:5%"
+      class="custom-searchbar"
+      (input)="busquedaAplication($event.target.value)"
+      (ionClear)="onCancel($event.target.value)">
+    </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 

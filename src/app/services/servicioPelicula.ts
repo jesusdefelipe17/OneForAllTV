@@ -43,8 +43,8 @@ export class servicioPelicula {
     return this.http.get<reparto>(path);
   }
 
-  getPeliculaBusqueda(palabraBusqueda){
-    var path = 'https://api.themoviedb.org/3/search/movie?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES&query='.concat(palabraBusqueda).concat('&page=1&include_adult=false');
+  getPeliculaBusqueda(nombrePelicula){
+    var path = 'https://onetvapi.onrender.com/getPeliculaBusquedaScript/'.concat(nombrePelicula);
     console.log(path);
     return this.http.get<busqueda>(path);
   }
