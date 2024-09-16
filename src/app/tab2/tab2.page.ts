@@ -28,6 +28,8 @@ export class Tab2Page {
   // Definición de Subject para manejar los eventos de búsqueda con debounce
   private searchSubject: Subject<string> = new Subject();
 
+  searchTerm: string = '';
+
   constructor(private router: Router, private activatedRoute: ActivatedRoute, public sanitizer: DomSanitizer, private servicioPelicula: servicioPelicula) {
     // Escucha cambios en la ruta
     router.events.subscribe((val) => {
@@ -50,6 +52,7 @@ export class Tab2Page {
       this.cargarPeliculasPopulares = false;
     });
   }
+
 
   // Método que se llama en cada input en el buscador
   busquedaAplication(value: string) {
@@ -89,10 +92,13 @@ export class Tab2Page {
   ordenarBusquedasPorPopularidad() {
     this.arrayBusquedas = this.busquedas.sort((a, b) => a.popularity < b.popularity ? 1 : b.popularity < a.popularity ? -1 : 0);
     console.log(this.arrayBusquedas);
+
   }
+ 
+
 
   // Método para manejar la cancelación de la búsqueda
-  onCancel(value) {
+  onCancel() {
     document.getElementById("drag").style.display = "block";
     document.getElementById("drag2").style.display = "none";
     this.busquedas = [];  // Limpiar los resultados de búsqueda cuando se cancela

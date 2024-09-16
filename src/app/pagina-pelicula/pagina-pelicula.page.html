@@ -11,7 +11,19 @@
 
 <ion-content class="fondo">
   <div *ngIf="cargarPelicula" class="contenido">
-    <ion-img src="https://image.tmdb.org/t/p/w500{{valoresPeliculas.poster}}" id="portada"></ion-img>
+    <ion-img 
+  *ngIf="valoresPeliculas.poster.includes('peliculas10'); else defaultImage"
+  [src]="valoresPeliculas.poster" 
+  id="portada">
+</ion-img>
+
+<ng-template #defaultImage>
+  <ion-img 
+    [src]="'https://image.tmdb.org/t/p/w500' + valoresPeliculas.poster" 
+    id="portada">
+  </ion-img>
+</ng-template>
+
     <ul class="list-group list-group-flush" style="background-color: black; text-align: center;">
       <li class="list-group-item" style="background-color: black; color: green;">Puntuacion: {{valoresPeliculas.calificacion}} / 10</li>
       <ion-row style="text-align: center;">

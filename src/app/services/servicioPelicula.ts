@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { PeliculaResponse } from '../interfaces/pelicula';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { PeliculaResponse, ValoresPeliculas } from '../interfaces/pelicula';
 import { trailer } from '../interfaces/trailer';
 import { valoresPeliculas } from '../interfaces/valoresPeliculas';
 import { reparto } from '../interfaces/reparto';
@@ -9,25 +9,36 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { series } from '../interfaces/series';
 import { serie } from '../interfaces/serie';
 import { temporada } from '../interfaces/temporada';
+import { environment } from 'src/environments/environment';
+import { peliculaTMB } from '../interfaces/peliculaTMB';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class servicioPelicula {
+ 
 
   urlSafe: SafeResourceUrl;
   url:string;
+
+  private baseUrl = environment.apiUrl; // Usa la URL del entorno
+
   constructor(private http:HttpClient,public sanitizer: DomSanitizer) { }
 
 
   getPopularMovies() {
-    const path = 'https://onetvapi.onrender.com/ultimasPeliculas';
+    const path = `${this.baseUrl}/api/ultimasPeliculas`;
     return this.http.get<PeliculaResponse>(path);
 }
 
+  getPeliculaBusquedaScript(nombrePelicula) {
+    const path = `${this.baseUrl}/getPeliculaBusquedaScript/${nombrePelicula}`;
+    return this.http.get<string>(path);
+  }
+
   getPelicula(nombrePelicula){
-    var path = 'https://onetvapi.onrender.com/getPelicula/'.concat(nombrePelicula);
+    const path = `${this.baseUrl}/getPelicula/${nombrePelicula}`;
     console.log(path);
     return this.http.get<valoresPeliculas>(path);
   }
@@ -43,11 +54,29 @@ export class servicioPelicula {
     return this.http.get<reparto>(path);
   }
 
+
   getPeliculaBusqueda(nombrePelicula){
     var path = 'https://onetvapi.onrender.com/getPeliculaBusquedaScript/'.concat(nombrePelicula);
     console.log(path);
     return this.http.get<busqueda>(path);
   }
+  
+  getNumPelicula(nombrePeli: string) {
+    const apiKey = 'f206e13c8124d66161320fc69ca6960d';
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMjA2ZTEzYzgxMjRkNjYxNjEzMjBmYzY5Y2E2OTYwZCIsIm5iZiI6MTcyNDU5NTEzOS4wOTQ1NjksInN1YiI6IjVmYTMyMzkzZjkyNTMyMDA0MGY2YTVkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.x35oeEgmSjZj6faaz-HBySorrK9_GyhnojTmJXvT5y4';
+    
+    const path = `https://api.themoviedb.org/3/search/movie?query=${nombrePeli}&include_adult=false&language=es-ES&page=1`;
+  
+    const headers = new HttpHeaders({
+      'accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  
+    console.log(path);
+  
+    return this.http.get<peliculaTMB>(path, { headers });
+  }
+
 
   getSeriePopular(){
     var path = 'https://api.themoviedb.org/3/tv/popular?api_key=f206e13c8124d66161320fc69ca6960d&language=es-ES&page=1';

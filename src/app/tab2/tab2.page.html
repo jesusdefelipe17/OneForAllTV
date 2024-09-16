@@ -1,5 +1,6 @@
 <ion-header translucent>
   <ion-toolbar class="new-background-color border border-dark">
+
     <ion-searchbar style="margin-top:5%"
       class="custom-searchbar"
       (input)="busquedaAplication($event.target.value)"
@@ -7,6 +8,7 @@
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
+
 
 
 
@@ -21,7 +23,7 @@
     <div id="drag" >
       <div class="box-shadow" *ngFor="let item of peliculas.slice(13, 20);">
 
-      <ion-row style="text-align: center;">
+      <ion-row style="text-align: center; justify-content: center; align-items: center; ">
         <ion-col>
           <div *ngIf="item.poster_path!=null;else other_content">
            <img class="peliBusquedaInicio card-img-top" src="{{item.imgSrc}}" alt="Card image cap"  onerror="this.onerror=null;this.src='https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';" >
@@ -53,12 +55,12 @@
               
               </div>
               <ng-template #other>
-                <a [routerLink]="['/pagina-pelicula', item.id]" ><img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" alt="Card image cap"  onerror="this.onerror=null;this.src='https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';"></a>
+                <a [routerLink]="['/pagina-pelicula', item.idNuevo]" ><img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" alt="Card image cap"  onerror="this.onerror=null;this.src='https://increasify.com.au/wp-content/uploads/2016/08/default-image.png';"></a>
               </ng-template>
               
           </div>
           <ng-template #other_content>
-            <a [routerLink]="['/pagina-pelicula', item.id]" ><img class="card-img-top" src="https://increasify.com.au/wp-content/uploads/2016/08/default-image.png" alt="Card image cap"></a>
+            <a [routerLink]="['/pagina-pelicula', item.idNuevo]" ><img class="card-img-top" src="https://increasify.com.au/wp-content/uploads/2016/08/default-image.png" alt="Card image cap"></a>
           </ng-template>
             <div class="card-body">
             

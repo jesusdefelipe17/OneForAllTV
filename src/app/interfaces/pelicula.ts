@@ -6,6 +6,7 @@ export interface ValoresPeliculas {
     link: string;
     imgSrc: string;
     releaseDate: string;
+    title2: string;
 }
 
 export interface PeliculaResponse {

@@ -7,9 +7,7 @@ import { valoresPeliculas } from '../interfaces/valoresPeliculas';
 import { trailer } from '../interfaces/trailer';
 import { reparto } from '../interfaces/reparto';
 import { NavController } from '@ionic/angular';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { environment } from '../../environments/environment';
+
 @Component({
   selector: 'app-pagina-pelicula',
   templateUrl: './pagina-pelicula.page.html',
@@ -30,7 +28,7 @@ export class PaginaPeliculaPage implements OnInit {
   reparto_array: Array<any> = [];
   idiomaSeleccionado: number = 0; // Idioma por defecto
   
-  cargarPelicula:boolean = false;
+  cargarPelicula: boolean = false;
 
   constructor(
     private router: Router,
@@ -42,11 +40,31 @@ export class PaginaPeliculaPage implements OnInit {
 
   ngOnInit() {
     this.idPelicula = this.activatedRoute.snapshot.paramMap.get("id");
+
+    // Primero, obtener el ID de la película en TMDB
+    this.servioPelicula.getNumPelicula(this.idPelicula).subscribe((response: any) => {
+      const numPeli = response.results[0]?.id; // Extraer el ID de la película
+
+      if (numPeli) {
+        // Ahora, obtener el reparto de la película utilizando el ID
+        this.getRepartoPelicula(numPeli);
+      }
+    });
+
+    // Obtener información de la película
     this.servioPelicula.getPelicula(this.idPelicula).subscribe(resultados => {
       this.valoresPeliculas = resultados;
       this.enlaces = this.valoresPeliculas.links.map(l => l.replace('doodstream.com', 'dood.li'));
       this.cargarPelicula = true;
       this.updateIframeUrl(); // Actualiza la URL del iframe al cargar
+    });
+  }
+
+  getRepartoPelicula(numPeli: number) {
+    this.servioPelicula.getRepartoPelicula(numPeli).subscribe((reparto: reparto) => {
+      this.reparto = reparto;
+      this.reparto_array = reparto.cast; // Suponiendo que el reparto viene en un array llamado "cast"
+      console.log(this.reparto);
     });
   }
 
